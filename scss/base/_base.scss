@@ -1,0 +1,27 @@
+@use "../abstracts/variables" as v;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: v.$font-main;
+  background: v.$bg-white;
+  color: v.$text-black;
+  overflow-x: hidden;
+}
+
+.page {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+

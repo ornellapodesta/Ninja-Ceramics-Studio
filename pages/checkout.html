@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — Ninja Ceramics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assest/favicon.png">
+  <meta name="theme-color" content="#1b1b12">
+  <script src="../js/store.js" defer></script>
+  <style>
+    :root{--yellow:#e5b52c;--green:#525529;--brown-dark:#594331;--white:#f5f3ed;--black:#1b1b12;}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Poppins',sans-serif;background:var(--white);color:var(--black)}
+    nav{position:sticky;top:0;z-index:10;background:var(--black);height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 48px}
+    .nav-logo img{height:38px;object-fit:contain}
+    .nav-links{list-style:none;display:flex;gap:26px;align-items:center}
+    .nav-links a{color:var(--white);text-decoration:none;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase}
+    .wrap{padding:54px 60px;max-width:1100px;margin:0 auto}
+    h1{font-size:clamp(34px,5vw,60px);font-weight:800;letter-spacing:-.01em;text-transform:uppercase}
+    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;margin-top:28px}
+    .card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:18px}
+    .sec-title{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.55);font-weight:800;margin-bottom:14px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .full{grid-column:1/-1}
+    label{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.55);margin-bottom:7px;font-weight:700}
+    input,select,textarea{width:100%;border:1px solid rgba(0,0,0,.14);border-radius:10px;padding:12px 14px;font-family:'Poppins',sans-serif;font-size:13.5px;outline:none}
+    input:focus,select:focus,textarea:focus{border-color:var(--yellow)}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .pill{border:2px solid rgba(0,0,0,.25);border-radius:999px;padding:10px 14px;cursor:pointer;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:transparent}
+    .pill.active{border-color:var(--yellow);background:rgba(229,181,44,.12)}
+    .btn{display:inline-block;border:none;border-radius:999px;padding:12px 22px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:12px;cursor:pointer}
+    .btn-primary{background:var(--yellow);color:var(--black)}
+    .sum-row{display:flex;justify-content:space-between;margin:10px 0;color:#333;font-size:14px}
+    .sum-row strong{font-weight:900}
+    .line{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.06);font-size:13px}
+    .line:last-child{border-bottom:none}
+    .muted{color:#666;font-size:12px;line-height:1.6;margin-top:10px}
+    @media(max-width:960px){nav{padding:0 20px}.wrap{padding:42px 20px}.grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-logo"><a href="../index.html"><img alt="Ninja Ceramics" src="../assest/logo.png"></a></div>
+    <ul class="nav-links">
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+  </nav>
+
+  <main class="wrap">
+    <h1>Checkout</h1>
+    <div class="grid">
+      <section class="card">
+        <div class="sec-title">Customer</div>
+        <div class="form-grid">
+          <div class="full">
+            <label>Email *</label>
+            <input id="email" type="email" placeholder="you@email.com" required>
+          </div>
+          <div>
+            <label>Full name *</label>
+            <input id="name" type="text" placeholder="Your name" required>
+          </div>
+          <div>
+            <label>Phone</label>
+            <input id="phone" type="tel" placeholder="+34 ...">
+          </div>
+        </div>
+
+        <div style="height:18px"></div>
+        <div class="sec-title">Delivery</div>
+        <div class="row" style="margin-bottom:14px;">
+          <button class="pill active" type="button" id="pickupBtn">Pick up in studio</button>
+          <button class="pill" type="button" id="shipBtn">Shipping</button>
+        </div>
+
+        <div id="shippingFields" style="display:none;">
+          <div class="form-grid">
+            <div class="full">
+              <label>Shipping zone</label>
+              <select id="zone">
+                <option value="spain">Spain</option>
+                <option value="eu">EU</option>
+                <option value="intl">International</option>
+              </select>
+            </div>
+            <div class="full">
+              <label>Address *</label>
+              <input id="address1" type="text" placeholder="Street, number" />
+            </div>
+            <div class="full">
+              <label>City *</label>
+              <input id="city" type="text" placeholder="Barcelona" />
+            </div>
+            <div>
+              <label>Postal code *</label>
+              <input id="zip" type="text" placeholder="08003" />
+            </div>
+            <div>
+              <label>Country *</label>
+              <input id="country" type="text" placeholder="Spain" />
+            </div>
+          </div>
+        </div>
+
+        <div style="height:18px"></div>
+        <div class="sec-title">Discount</div>
+        <div class="form-grid">
+          <div class="full">
+            <label>Voucher code</label>
+            <input id="voucher" type="text" placeholder="Try: NINJA10">
+          </div>
+        </div>
+
+        <div style="height:20px"></div>
+        <button class="btn btn-primary" type="button" id="placeOrderBtn">Place order</button>
+        <div class="muted">
+          This demo saves the order locally and shows a confirmation page. To accept real payments, we’ll connect Stripe Checkout.
+        </div>
+      </section>
+
+      <aside class="card">
+        <div class="sec-title">Order summary</div>
+        <div id="summaryLines"></div>
+        <div class="sum-row"><span>Subtotal</span><strong id="subtotal">€0</strong></div>
+        <div class="sum-row"><span>Shipping</span><strong id="shipping">€0</strong></div>
+        <div class="sum-row"><span>Discount</span><strong id="discount">€0</strong></div>
+        <div class="sum-row" style="border-top:1px solid rgba(0,0,0,.08);padding-top:12px;"><span>Total</span><strong id="total">€0</strong></div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    let method = 'pickup';
+    function setMethod(next) {
+      method = next;
+      document.getElementById('pickupBtn').classList.toggle('active', method === 'pickup');
+      document.getElementById('shipBtn').classList.toggle('active', method === 'shipping');
+      document.getElementById('shippingFields').style.display = method === 'shipping' ? 'block' : 'none';
+      recalc();
+    }
+
+    function recalc() {
+      const lines = window.NinjaStore.cartLines();
+      const subtotal = window.NinjaStore.calcSubtotal(lines);
+      const zone = document.getElementById('zone').value;
+      let shipping = window.NinjaStore.calcShipping({ method, zone });
+      const code = document.getElementById('voucher').value;
+      const discount = window.NinjaStore.calcDiscount({ code, subtotal });
+
+      // Optional: FREESHIP voucher
+      if ((code || '').trim().toUpperCase() === 'FREESHIP' && method === 'shipping') shipping = 0;
+
+      const total = Math.max(0, subtotal + shipping - discount);
+
+      document.getElementById('subtotal').textContent = window.NinjaStore.formatEUR(subtotal);
+      document.getElementById('shipping').textContent = window.NinjaStore.formatEUR(shipping);
+      document.getElementById('discount').textContent = '-' + window.NinjaStore.formatEUR(discount);
+      document.getElementById('total').textContent = window.NinjaStore.formatEUR(total);
+
+      const wrap = document.getElementById('summaryLines');
+      wrap.innerHTML = lines.map(l => `
+        <div class="line">
+          <span>${l.name} × ${l.qty}</span>
+          <strong>${window.NinjaStore.formatEUR(l.lineTotal)}</strong>
+        </div>
+      `).join('') || '<div class="muted">Your cart is empty.</div>';
+    }
+
+    function validate() {
+      const email = document.getElementById('email').value.trim();
+      const name = document.getElementById('name').value.trim();
+      if (!email || !name) return 'Please add your email and name.';
+      if (!window.NinjaStore.cartLines().length) return 'Your cart is empty.';
+
+      if (method === 'shipping') {
+        const requiredIds = ['address1','city','zip','country'];
+        for (const id of requiredIds) {
+          if (!document.getElementById(id).value.trim()) return 'Please complete your shipping address.';
+        }
+      }
+      return null;
+    }
+
+    document.getElementById('pickupBtn').addEventListener('click', () => setMethod('pickup'));
+    document.getElementById('shipBtn').addEventListener('click', () => setMethod('shipping'));
+    document.getElementById('zone').addEventListener('change', recalc);
+    document.getElementById('voucher').addEventListener('input', recalc);
+    document.addEventListener('DOMContentLoaded', () => { setMethod('pickup'); recalc(); });
+    window.addEventListener('ninja:cart-changed', recalc);
+
+    document.getElementById('placeOrderBtn').addEventListener('click', () => {
+      const err = validate();
+      if (err) { alert(err); return; }
+
+      const lines = window.NinjaStore.cartLines();
+      const subtotal = window.NinjaStore.calcSubtotal(lines);
+      const zone = document.getElementById('zone').value;
+      let shipping = window.NinjaStore.calcShipping({ method, zone });
+      const code = document.getElementById('voucher').value;
+      const discount = window.NinjaStore.calcDiscount({ code, subtotal });
+      if ((code || '').trim().toUpperCase() === 'FREESHIP' && method === 'shipping') shipping = 0;
+      const total = Math.max(0, subtotal + shipping - discount);
+
+      const order = {
+        id: 'NC-' + Math.random().toString(16).slice(2, 8).toUpperCase(),
+        createdAt: new Date().toISOString(),
+        customer: {
+          email: document.getElementById('email').value.trim(),
+          name: document.getElementById('name').value.trim(),
+          phone: document.getElementById('phone').value.trim(),
+        },
+        delivery: {
+          method,
+          zone,
+          address: method === 'shipping' ? {
+            address1: document.getElementById('address1').value.trim(),
+            city: document.getElementById('city').value.trim(),
+            zip: document.getElementById('zip').value.trim(),
+            country: document.getElementById('country').value.trim(),
+          } : null,
+        },
+        voucher: (code || '').trim(),
+        lines,
+        totals: { subtotal, shipping, discount, total },
+        payment: { status: 'unpaid', note: 'Connect Stripe to accept payments.' }
+      };
+
+      window.NinjaStore.saveLastOrder(order);
+      window.NinjaStore.clearCart();
+      window.location.href = 'order-confirmation.html';
+    });
+  </script>
+</body>
+</html>
+

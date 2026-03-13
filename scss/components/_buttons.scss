@@ -1,0 +1,38 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.btn {
+  @include m.btn-base;
+
+  &--primary {
+    background: v.$primary-yellow;
+    color: v.$text-black;
+
+    &:hover {
+      background: darken(v.$primary-yellow, 8%);
+      transform: scale(1.03);
+    }
+  }
+
+  &--outline-dark {
+    background: transparent;
+    border: 2px solid v.$text-black;
+    color: v.$text-black;
+
+    &:hover {
+      background: v.$text-black;
+      color: v.$bg-white;
+    }
+  }
+
+  &--green {
+    background: v.$primary-green;
+    color: v.$bg-white;
+
+    &:hover {
+      background: v.$brown-dark;
+      transform: scale(1.03);
+    }
+  }
+}
+

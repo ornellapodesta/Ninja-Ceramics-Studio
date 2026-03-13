@@ -1,0 +1,63 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: v.$text-black;
+  @include m.flex-center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 68px;
+  border-bottom: 1px solid v.$text-black;
+
+  .nav-logo {
+    cursor: pointer;
+    @include m.flex-center;
+
+    img {
+      height: 38px;
+      object-fit: contain;
+    }
+  }
+
+  .nav-links {
+    @include m.flex-center;
+    gap: 36px;
+    list-style: none;
+
+    a {
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: v.$bg-white;
+      text-decoration: none;
+      transition: color 0.2s, opacity 0.2s;
+
+      &.active-link,
+      &:hover {
+        color: v.$primary-yellow;
+        opacity: 0.9;
+      }
+    }
+
+    .nav-cta {
+      @extend .btn;
+      @extend .btn--green;
+      padding: 10px 26px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+  }
+}
+
+@include m.respond(md) {
+  nav {
+    padding: 0 20px;
+  }
+}
+
