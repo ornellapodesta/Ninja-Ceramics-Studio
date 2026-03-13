@@ -53,6 +53,59 @@ nav {
 }
 .nav-cta:hover { background:var(--brown-dark) !important; transform:scale(1.03); }
 
+/* Mobile nav toggle */
+.nav-toggle {
+  display:none;
+  width:40px;
+  height:40px;
+  margin-left:16px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,0.4);
+  background:transparent;
+  cursor:pointer;
+  align-items:center;
+  justify-content:center;
+}
+.nav-toggle span {
+  display:block;
+  width:18px;
+  height:2px;
+  background:var(--white);
+  border-radius:2px;
+  transition:transform 0.2s, opacity 0.2s;
+}
+.nav-toggle span + span { margin-top:4px; }
+.nav-open .nav-toggle span:first-child { transform:translateY(3px) rotate(45deg); }
+.nav-open .nav-toggle span:last-child { transform:translateY(-3px) rotate(-45deg); }
+
+@media(max-width:768px){
+  nav{
+    padding:0 20px;
+  }
+  .nav-toggle{
+    display:flex;
+  }
+  .nav-links{
+    position:absolute;
+    top:68px;
+    left:0;
+    right:0;
+    background:var(--black);
+    flex-direction:column;
+    gap:20px;
+    padding:20px;
+    transform:translateY(-130%);
+    opacity:0;
+    pointer-events:none;
+    transition:transform 0.25s ease, opacity 0.25s ease;
+  }
+  .nav-open .nav-links{
+    transform:translateY(0);
+    opacity:1;
+    pointer-events:auto;
+  }
+}
+
 /* ── HERO CAROUSEL ── */
 .hero {
   padding-top:68px; height:100vh; position:relative; overflow:hidden;
@@ -208,11 +261,12 @@ nav {
   border-radius:18px; border:1px solid rgba(0,0,0,0.06);
   box-shadow:0 18px 40px rgba(0,0,0,0.12);
 }
-.w-card-icon {
-  width:64px; height:64px; margin-bottom:22px;
+ .w-card-icon {
+  width:96px; height:96px; margin-bottom:22px;
   display:flex; align-items:center; justify-content:center;
 }
-.w-card-icon svg { width:52px; height:52px; color:var(--yellow); }
+.w-card-icon svg { width:80px; height:80px; color:var(--yellow); }
+.w-card-icon img { width:100%; height:100%; object-fit:contain; }
 .w-card h3 {
   font-size:12px; font-weight:700; letter-spacing:0.12em;
   text-transform:uppercase; color:var(--black); margin-bottom:5px;
@@ -222,11 +276,11 @@ nav {
 
 /* ── MONTHLY ── */
 .monthly-section {
-  display:grid; grid-template-columns:1fr 1fr; background:var(--green); min-height:480px;
+  display:grid; grid-template-columns:1fr 1fr; background:var(--green); min-height:340px;
 }
-.monthly-img { position:relative; overflow:hidden; min-height:380px; }
+.monthly-img { position:relative; overflow:hidden; min-height:260px; }
 .monthly-img img { width:100%; height:100%; object-fit:cover; }
-.monthly-content { padding:64px 56px; display:flex; flex-direction:column; justify-content:center; }
+.monthly-content { padding:40px 56px; display:flex; flex-direction:column; justify-content:center; }
 .monthly-content h2 {
   font-size:clamp(38px,5vw,62px); font-weight:600;
   color:var(--white); line-height:1.05; margin-bottom:20px;
@@ -234,7 +288,12 @@ nav {
 }
 .monthly-content p { font-size:14px; line-height:1.8; color:rgba(245,243,237,0.72); margin-bottom:10px; font-weight:300; }
 .monthly-content p strong { color:var(--yellow); font-weight:600; }
-.monthly-actions { display:flex; align-items:center; gap:18px; margin-top:28px; }
+.monthly-actions { display:flex; align-items:center; gap:14px; margin-top:22px; }
+.link-ghost {
+  font-size:11px; letter-spacing:0.14em; text-transform:uppercase;
+  text-decoration:none; font-weight:500; color:rgba(245,243,237,0.7);
+}
+.link-ghost:hover { color:var(--yellow); }
 
 /* ── SHOP PREVIEW ── */
 .shop-section { background:white; padding:72px 60px 0; }
@@ -514,7 +573,6 @@ footer {
 
 /* Responsive */
 @media(max-width:960px) {
-  nav{padding:0 20px;}
   .about-preview{grid-template-columns:1fr;gap:24px;}
   .workshops-grid{grid-template-columns:1fr;}
   .monthly-section{grid-template-columns:1fr;}
@@ -535,8 +593,12 @@ footer {
 <!-- NAV -->
 <nav>
   <div class="nav-logo" onclick="showPage('home')">
-  <img alt="Ninja Ceramics" src="assest/logo.png">
+    <img alt="Ninja Ceramics" src="assest/logo.png">
   </div>
+  <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span>
+    <span></span>
+  </button>
   <ul class="nav-links">
     <li><a href="#" onclick="showPage('about');return false;">About Us</a></li>
     <li><a href="#" onclick="showPage('shop');return false;">Shop</a></li>
@@ -999,8 +1061,7 @@ footer {
         </div>
       </div>
       <div class="pf-card" data-cat="sets">
-        <div class="pf-img"><img src="./img/shop-item-09.webp"
-          alt="Duo Set"></div>
+        <div class="pf-img"><img src="./img/shop-item-09.webp" alt="Duo Set"></div>
         <div class="pf-info">
           <p class="pf-name">Duo Set</p>
           <p class="pf-desc">Two complementary vessels in tonal cream stoneware. Sold as a pair.</p>
@@ -1008,8 +1069,7 @@ footer {
         </div>
       </div>
       <div class="pf-card" data-cat="sculpture">
-        <div class="pf-img"><img src="./img/shop-item-10.webp"
-          alt="Studio Collection"></div>
+        <div class="pf-img"><img src="./img/shop-item-10.webp" alt="Studio Collection"></div>
         <div class="pf-info">
           <p class="pf-name">Studio Collection</p>
           <p class="pf-desc">Curated set of sculptural pieces from the current season's work.</p>
@@ -1020,9 +1080,9 @@ footer {
   </div>
   <div class="pattern-sep">
     <div class="pattern-inner">
-      <span>◆</span><span>HANDMADE</span><span>◆</span><span>BARCELONA</span><span>◆</span><span>STONEWARE</span><span>◆</span><span>FIRED</span>
-      <span>◆</span><span>HANDMADE</span><span>◆</span><span>BARCELONA</span><span>◆</span><span>STONEWARE</span><span>◆</span><span>FIRED</span>
-      <span>◆</span><span>HANDMADE</span><span>◆</span><span>BARCELONA</span><span>◆</span><span>STONEWARE</span><span>◆</span><span>FIRED</span>
+      <span>◆</span><span>HANDMADE</span><span>◆</span><span>BARCELONA</span><span>◆</span><span>WE</span><span>◆</span><span>SHAPE</span><span>◆</span><span>CLAY</span>
+      <span>◆</span><span>HANDMADE</span><span>◆</span><span>BARCELONA</span><span>◆</span><span>WE</span><span>◆</span><span>SHAPE</span> <span>◆</span><span>CLAY</span>
+      <span>◆</span><span>HANDMADE</span><span>◆</span><span>BARCELONA</span><span>◆</span><span>WE</span><span>◆</span><span>SHAPE</span> <span>◆</span><span>CLAY</span> 
     </div>
   </div>
   <div class="commission-section" style="padding:80px 40px;">
@@ -1186,7 +1246,30 @@ function updateCartBadge() {
   el.style.display = n > 0 ? 'inline-flex' : 'none';
 }
 window.addEventListener('ninja:cart-changed', updateCartBadge);
-document.addEventListener('DOMContentLoaded', updateCartBadge);
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartBadge();
+
+  const nav = document.querySelector('nav');
+  const toggle = document.querySelector('.nav-toggle');
+  const links = document.querySelectorAll('.nav-links a');
+
+  if (nav && toggle) {
+    toggle.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('nav-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        if (nav.classList.contains('nav-open')) {
+          nav.classList.remove('nav-open');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
+});
 
 function buyHome(productId) {
   if (!window.NinjaStore) return;
