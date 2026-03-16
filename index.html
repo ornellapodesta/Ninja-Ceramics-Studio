@@ -573,6 +573,18 @@ footer {
 
 /* Responsive */
 @media(max-width:960px) {
+  .hero-content{padding:0 24px;padding-top:40px;}
+  .hero-btns{flex-direction:column;align-items:flex-start;gap:10px;}
+  .btn-primary,
+  .btn-outline-light,
+  .btn-outline-dark,
+  .btn-green{
+    min-width:190px;
+    text-align:center;
+    padding:12px 20px;
+    font-size:11px;
+    letter-spacing:0.12em;
+  }
   .about-preview{grid-template-columns:1fr;gap:24px;}
   .workshops-grid{grid-template-columns:1fr;}
   .monthly-section{grid-template-columns:1fr;}
@@ -1246,30 +1258,7 @@ function updateCartBadge() {
   el.style.display = n > 0 ? 'inline-flex' : 'none';
 }
 window.addEventListener('ninja:cart-changed', updateCartBadge);
-
-document.addEventListener('DOMContentLoaded', () => {
-  updateCartBadge();
-
-  const nav = document.querySelector('nav');
-  const toggle = document.querySelector('.nav-toggle');
-  const links = document.querySelectorAll('.nav-links a');
-
-  if (nav && toggle) {
-    toggle.addEventListener('click', () => {
-      const isOpen = nav.classList.toggle('nav-open');
-      toggle.setAttribute('aria-expanded', String(isOpen));
-    });
-
-    links.forEach(link => {
-      link.addEventListener('click', () => {
-        if (nav.classList.contains('nav-open')) {
-          nav.classList.remove('nav-open');
-          toggle.setAttribute('aria-expanded', 'false');
-        }
-      });
-    });
-  }
-});
+document.addEventListener('DOMContentLoaded', updateCartBadge);
 
 function buyHome(productId) {
   if (!window.NinjaStore) return;
