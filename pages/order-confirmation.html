@@ -12,10 +12,16 @@
     :root{--yellow:#e5b52c;--green:#525529;--brown-dark:#594331;--white:#f5f3ed;--black:#1b1b12;}
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Poppins',sans-serif;background:var(--white);color:var(--black)}
-    nav{position:sticky;top:0;z-index:10;background:var(--black);height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 48px}
+    nav{position:sticky;top:0;z-index:10;background:var(--black);height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
     .nav-logo img{height:38px;object-fit:contain}
     .nav-links{list-style:none;display:flex;gap:26px;align-items:center}
     .nav-links a{color:var(--white);text-decoration:none;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase}
+    .nav-toggle{display:none;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,0.4);background:transparent;cursor:pointer;align-items:center;justify-content:center}
+    .nav-toggle span{display:block;width:18px;height:2px;background:var(--white);border-radius:2px;transition:transform .2s,opacity .2s}
+    .nav-toggle span + span{margin-top:4px}
+    nav.nav-open .nav-toggle span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+    nav.nav-open .nav-toggle span:nth-child(2){opacity:0}
+    nav.nav-open .nav-toggle span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
     .wrap{padding:54px 60px;max-width:900px;margin:0 auto}
     h1{font-size:clamp(34px,5vw,60px);font-weight:800;letter-spacing:-.01em;text-transform:uppercase}
     .card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:22px;margin-top:24px}
@@ -32,12 +38,19 @@
     .btn{display:inline-block;border:none;border-radius:999px;padding:10px 20px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:12px;cursor:pointer;text-decoration:none}
     .btn-primary{background:var(--yellow);color:var(--black)}
     .btn-outline{background:transparent;border:2px solid rgba(0,0,0,.35);color:var(--black)}
-    @media(max-width:960px){nav{padding:0 20px}.wrap{padding:42px 20px}}
+    @media(max-width:960px){
+      nav{padding:0 20px}
+      .wrap{padding:42px 20px}
+      .nav-toggle{display:flex}
+      .nav-links{position:absolute;top:68px;left:0;right:0;background:var(--black);flex-direction:column;gap:16px;padding:18px 20px;transform:translateY(-130%);opacity:0;pointer-events:none;transition:transform .25s ease,opacity .25s ease}
+      nav.nav-open .nav-links{transform:translateY(0);opacity:1;pointer-events:auto}
+    }
   </style>
 </head>
 <body>
   <nav>
     <div class="nav-logo"><a href="../index.html"><img alt="Ninja Ceramics" src="../assest/logo.png"></a></div>
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
     <ul class="nav-links">
       <li><a href="../index.html">Home</a></li>
       <li><a href="cart.html">Cart</a></li>
@@ -99,6 +112,24 @@
   </main>
 
   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const nav = document.querySelector('nav');
+      const toggle = document.querySelector('.nav-toggle');
+      const links = document.querySelectorAll('.nav-links a');
+      if (nav && toggle) {
+        toggle.addEventListener('click', () => {
+          const open = nav.classList.toggle('nav-open');
+          toggle.setAttribute('aria-expanded', String(open));
+        });
+        links.forEach(a => a.addEventListener('click', () => {
+          if (nav.classList.contains('nav-open')) {
+            nav.classList.remove('nav-open');
+            toggle.setAttribute('aria-expanded', 'false');
+          }
+        }));
+      }
+    });
+
     document.addEventListener('DOMContentLoaded', () => {
       const order = window.NinjaStore.readLastOrder();
       const card = document.getElementById('orderCard');
